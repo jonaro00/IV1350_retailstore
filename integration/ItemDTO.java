@@ -9,7 +9,14 @@ public final class ItemDTO {
     private final float VAT;
     private final String description;
 
-    ItemDTO(String ID, float price, float VAT, String description){
+    /**
+     * Returns a new ItemDTO with the specifed properties.
+     * @param ID The item identifier (name).
+     * @param price The price, excl VAT.
+     * @param VAT The percentage of VAT.
+     * @param description Information about the item.
+     */
+    public ItemDTO(String ID, float price, float VAT, String description){
         this.ID = ID;
         this.price = price;
         this.VAT = VAT;

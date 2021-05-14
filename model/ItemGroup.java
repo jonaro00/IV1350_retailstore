@@ -14,7 +14,6 @@ public class ItemGroup {
         this.quantity = quantity;
     }
 
-
     /**
      * @param quantity The amount of items to add to this group.
      */
@@ -22,35 +21,31 @@ public class ItemGroup {
         this.quantity += quantity;
     }
 
-
     /**
      * @return The total price of the item(s) in the group (including VAT).
      */
     public float getTotalPrice() {
-        return this.item.getPrice() * quantity + this.getTotalVAT();
+        return item.getPrice() * quantity + getTotalVAT();
     }
-
 
     /**
      * @return The total VAT of the item(s).
      */
     public float getTotalVAT() {
-        return this.item.getPrice() * item.getVAT() * quantity;
+        return item.getPrice() * item.getVAT() * quantity;
     }
-
 
     /**
      * @return The ItemDTO this group represents.
      */
     public ItemDTO getItem() {
-        return this.item;
+        return item;
     }
-
 
     /**
      * @return The number of items in this group.
      */
     public int getQuantity() {
-        return this.quantity;
+        return quantity;
     }
 }

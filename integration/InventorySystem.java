@@ -13,10 +13,10 @@ public class InventorySystem {
 
     InventorySystem() {
         this.items = new ArrayList<ItemDTO>();
-        addItems();
+        addSampleItems();
     }
 
-    private void addItems() {
+    private void addSampleItems() {
         items.add(new ItemDTO("Apple", 4F, 0.25F, "a red apple"));
         items.add(new ItemDTO("Banana", 5F, 0.25F, "a yellow banana"));
         items.add(new ItemDTO("Cherry", 2F, 0.25F, "a red cherry"));
