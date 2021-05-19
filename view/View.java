@@ -20,6 +20,8 @@ public class View {
      */
     public View(Controller contr) {
         this.contr = contr;
+        this.contr.addRevenueObserver(new TotalRevenueView());
+        this.contr.addRevenueObserver(new TotalRevenueFileOutput());
     }
 
     /**
@@ -54,6 +56,7 @@ public class View {
             }
             System.out.println("[UI]    Running total: " + contr.getSaleTotal());
         }
+        System.out.println();
         float paidAmount = 60;
         float change = contr.payAndCalculateChange(paidAmount);
         System.out.println();

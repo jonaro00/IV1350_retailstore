@@ -5,6 +5,7 @@ import integration.InventorySystem;
 import integration.InventorySystemException;
 import integration.SaleLog;
 import model.Register;
+import model.RevenueObserver;
 import model.Sale;
 import integration.Accounting;
 import integration.ItemDTO;
@@ -95,5 +96,13 @@ public class Controller {
      */
     public void printReceipt() {
         printer.printReceipt(sale.getReceipt());
+    }
+
+    /**
+     * Registers a <code>RevenueObserver</code> to receive notifications about total revenue.
+     * @param obs The observer to register.
+     */
+    public void addRevenueObserver(RevenueObserver obs) {
+        this.register.addRevenueObserver(obs);
     }
 }
