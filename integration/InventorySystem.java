@@ -23,17 +23,22 @@ public class InventorySystem {
     }
 
     /**
-     * Looks for an item and returns corresponding ItemDTO or null of not found.
+     * Looks for an item and returns corresponding ItemDTO.
      *
-     * @param itemID The item to search for
+     * @param itemID The item to search for.
      *
-     * @return ItemDTO Reference to a matching item or null
+     * @return ItemDTO Reference to a matching item.
+     *
+     * @throws ItemIDNotFoundException If itemID was not found.
+     * @throws InventorySystemException If something went wrong while accessing the database.
      */
-    public ItemDTO getItemInfo(String itemID) {
+    public ItemDTO getItemInfo(String itemID) throws ItemIDNotFoundException, InventorySystemException {
+        if (itemID.equals("MakeDatabaseFail"))
+            throw new InventorySystemException("Connection to database failed.");
         for (ItemDTO item : items)
             if (item.getID().equals(itemID))
                 return item;
-        return null;
+        throw new ItemIDNotFoundException(itemID);
     }
 
     /**

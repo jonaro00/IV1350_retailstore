@@ -1,10 +1,10 @@
 package model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.StringJoiner;
 
 import integration.ItemDTO;
+import util.DateTime;
 
 /**
  * Handles items, price and receipt for an ongoing sale.
@@ -63,7 +63,7 @@ public class Sale {
         builder
         .add("Your local store")
         .add("Unknown Road 1337, JavaLand")
-        .add(LocalDateTime.now().toString())
+        .add(DateTime.now())
         .add("")
         ;
         for (ItemGroup itemgroup : items) {

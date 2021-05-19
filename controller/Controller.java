@@ -2,11 +2,13 @@ package controller;
 
 import integration.ExternalSystemCreator;
 import integration.InventorySystem;
+import integration.InventorySystemException;
 import integration.SaleLog;
 import model.Register;
 import model.Sale;
 import integration.Accounting;
 import integration.ItemDTO;
+import integration.ItemIDNotFoundException;
 import integration.Printer;
 
 /**
@@ -47,18 +49,21 @@ public class Controller {
      * Searches for an item with an ID matching <code>itemID</code>.
      * If found, <code>quantity</code> of that item is added to the
      * current sale and the corresponding <code>ItemDTO</code> is returned.
-     * If not found, <code>null</code> is returned.
      *
      * @param itemID The item to search for.
      * @param quantity The amount of items to add.
-     * @return The matching <code>ItemDTO</code>, or <code>null</code>.
+     * @return The matching <code>ItemDTO</code>.
+     * @throws ItemIDNotFoundException If itemID was not found.
+     * @throws OperationFailedException If the item could not be entered for other reasons.
      */
-    public ItemDTO enterItem(String itemID, int quantity) {
-        ItemDTO item = inventorySystem.getItemInfo(itemID);
-        if (item == null)
-            return null;
-        this.sale.addItem(item, quantity);
-        return item;
+    public ItemDTO enterItem(String itemID, int quantity) throws ItemIDNotFoundException, OperationFailedException {
+        try {
+            ItemDTO item = inventorySystem.getItemInfo(itemID);
+            this.sale.addItem(item, quantity);
+            return item;
+        } catch (InventorySystemException invSysExc) {
+            throw new OperationFailedException("Could not add the item", invSysExc);
+        }
     }
 
     /**

@@ -20,13 +20,34 @@ public class TestInventorySystem {
     @Test
     public void testCorrectIDFromGetItemInfo() {
         String searchedItem = "Apple";
-        String result = inventory.getItemInfo(searchedItem).getID();
-        assertEquals(searchedItem, result, "Item from inventory does not have same ID as searched item.");
+        try {
+            String result = inventory.getItemInfo(searchedItem).getID();
+            assertEquals(searchedItem, result, "Item from inventory does not have same ID as searched item.");
+        } catch (Exception e) {
+            fail("Could not get valid item ID.");
+        }
     }
     @Test
-    public void testNullFromIncorrectID() {
+    public void testExceptionFromIncorrectID() {
         String madeUpItem = "ThisItemSurelyDoesNotExist... or?";
-        ItemDTO result = inventory.getItemInfo(madeUpItem);
-        assertNull(result, "Made up item did not return null.");
+        try {
+            inventory.getItemInfo(madeUpItem);
+            fail("Exception was not thrown for invalid item ID.");
+        } catch (ItemIDNotFoundException e) {
+            assertEquals(madeUpItem, e.getNotFoundItemID(), "Exception contained wrong item ID.");
+        } catch (Exception e) {
+            fail("Incorrect exception thrown.");
+        }
+    }
+    @Test
+    public void testExceptionFromDBFailure() {
+        String makeDatabaseFail = "MakeDatabaseFail";
+        try {
+            inventory.getItemInfo(makeDatabaseFail);
+        } catch (InventorySystemException e) {
+            // good
+        } catch (Exception e) {
+            fail("Incorrect exception thrown.");
+        }
     }
 }
